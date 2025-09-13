@@ -90,6 +90,11 @@ $app->bind(App\Services\Users\UserService::class, function ($app) {
 }); 
 
 
+$app->bind(App\Services\Auth\LoginService::class, function ($app) {
+    return new App\Services\Auth\LoginService();
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

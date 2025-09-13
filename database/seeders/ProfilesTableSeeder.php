@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Profile; // Asegúrate de importar el modelo profile
+use App\Models\Users\Profile; // Asegúrate de importar el modelo profile
 
 class ProfilesTableSeeder extends Seeder
 {

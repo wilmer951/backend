@@ -14,6 +14,9 @@ $router->get('/roles', 'Users\RolController@index');
 $router->get('/users', 'Users\UserController@index');
 $router->get('/profiles', 'Users\ProfileController@index');
 $router->post('/register', 'Users\UserController@register');
+$router->put('/users/{id}', 'Users\UserController@update');
+$router->delete('/users/{id}', 'Users\UserController@delete');
+$router->put('/reset-password/{id}', 'Users\UserController@resetPassword'); 
 
 // ✅ Rutas protegidas con JWT
 $router->group(['middleware' => 'auth:api'], function () use ($router) {

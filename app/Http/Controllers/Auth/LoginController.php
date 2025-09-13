@@ -4,9 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use Laravel\Lumen\Routing\Controller;
 use Illuminate\Http\Request;
+use App\Services\Auth\LoginService;
+
+
 
 class LoginController extends Controller
 {
+
+
+    public function __construct(LoginService $loginService)
+    {
+        $this->loginService = $loginService;
+    }       
+    
+
+
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -14,18 +26,10 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
 
-        $credentials = $request->only('username', 'password');
-
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
-        }
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 1,
-            'username' => auth()->user()->username,
-            'roles' => auth()->user()->roles()->pluck('rol_id')->toArray()
-        ]);
+        
+        $credentials = $request->only(['username', 'password']);
+        $data = $this->loginService->login($credentials);
+  
+        return response()->json($data);
     }
 }
