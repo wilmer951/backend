@@ -11,6 +11,8 @@ use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Models\Users\Rol;
 use App\Models\Users\Profile;
+use App\Models\Users\Module;
+
 
 class User extends Model implements AuthenticatableContract, JWTSubject, AuthorizableContract
 {
@@ -30,6 +32,14 @@ class User extends Model implements AuthenticatableContract, JWTSubject, Authori
         // El 'foreign key' es 'profile_id' en la tabla 'users'
         return $this->belongsTo(Profile::class, 'profile_id');
     }
+
+
+   public function hasModule($moduleName)
+            {
+                 return $this->roles()->whereHas('modules', function ($q) use ($moduleName) {
+                        $q->where('name', $moduleName);
+                    })->exists();
+            }
 
     // Métodos requeridos por JWTSubject
     public function getJWTIdentifier()

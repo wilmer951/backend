@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Users\Rol;
 
 
+
 class RolesTableSeeder extends Seeder
 {
     /**
@@ -17,6 +18,7 @@ class RolesTableSeeder extends Seeder
         Rol::create(['name' => 'admin', 'description' => 'Administrador del sistema']);
         Rol::create(['name' => 'editor', 'description' => 'Editor de contenido']);
         Rol::create(['name' => 'viewer', 'description' => 'Usuario con acceso de solo lectura']);
+    
     }
 }
    
