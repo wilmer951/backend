@@ -16,8 +16,8 @@ class RolesTableSeeder extends Seeder
     public function run(): void
     {
         Rol::create(['name' => 'admin', 'description' => 'Administrador del sistema']);
-        Rol::create(['name' => 'editor', 'description' => 'Editor de contenido']);
-        Rol::create(['name' => 'viewer', 'description' => 'Usuario con acceso de solo lectura']);
+        Rol::create(['name' => 'calidad', 'description' => 'Editor de contenido']);
+        Rol::create(['name' => 'auditor', 'description' => 'Usuario con acceso de solo lectura']);
     
     }
 }

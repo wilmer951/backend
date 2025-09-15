@@ -8,7 +8,9 @@ use App\Models\User;
 
 
 class LoginService
+
 {
+    
     public function login(array $credentials)
     {
 
@@ -37,12 +39,26 @@ class LoginService
             ], 401); // Unauthorized
         }
 
+        $user = auth()->user();
+
+        // Carga los roles y los módulos de una vez
+        $userWithRelations = $user->load('roles.modules');
+
+        $roles = $userWithRelations->roles->pluck('id')->toArray();
+
+        // Obtener los módulos de todos los roles del usuario
+        $modules = $userWithRelations->roles->flatMap(function ($role) {
+            return $role->modules->pluck('name');
+        })->unique()->values()->toArray();
+
+
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 1,
-            'username'     => auth()->user()->username,
-            'roles'        => auth()->user()->roles()->pluck('rol_id')->toArray()
+            'username'     => $user->username,
+            'roles'        => $roles,
+            'modules'      => $modules, // Agregas los módulos aquí
         ]);
     }
 }

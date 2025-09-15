@@ -26,7 +26,7 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
 
 
 
-$router->group(['middleware' => ['module:usuarios', 'auth:api']], function () use ($router) {
+$router->group(['middleware' => ['module:users', 'auth:api']], function () use ($router) {
 
 
     $router->get('/users', 'Users\UserController@index');
@@ -39,16 +39,4 @@ $router->group(['middleware' => ['module:usuarios', 'auth:api']], function () us
 
 
 
-$router->get('/prueba/{id}/module', function ($id) {
-    $rol = App\Models\Users\Rol::with('modules')->find($id);
-
-    if (!$rol) {
-        return response()->json(['error' => 'Rol no encontrado'], 404);
-    }
-
-    if ($rol->modules->isEmpty()) {
-        return response()->json(['error' => 'Acceso denegado, este rol no tiene módulos'], 403);
-    }
-
-    return response()->json($rol->modules);
-});
+$router->get('/pruebausers', 'Users\UserController@index');

@@ -12,15 +12,15 @@ class RolesAndModulesSeeder extends Seeder
         // Insertar roles
         DB::table('rol')->insert([
             ['name' => 'admin'],
-            ['name' => 'cliente'],
-            ['name' => 'vendedor'],
+            ['name' => 'calidad'],
+            ['name' => 'auditor'],
         ]);
 
         // Insertar módulos
         DB::table('module')->insert([
-            ['name' => 'usuarios'],
-            ['name' => 'ventas'],
-            ['name' => 'clientes'],
+            ['name' => 'users'],
+            ['name' => 'calidad'],
+            ['name' => 'auditoria'],
         ]);
 
         // Relación role ↔ módulos
@@ -30,11 +30,11 @@ class RolesAndModulesSeeder extends Seeder
             ['rol_id' => 1, 'module_id' => 2],
             ['rol_id' => 1, 'module_id' => 3],
 
-            // cliente solo módulo clientes
-            ['rol_id' => 2, 'module_id' => 3],
+            // cliente solo módulo calidad
+            ['rol_id' => 2, 'module_id' => 2],
 
-            // vendedor solo módulo ventas
-            ['rol_id' => 3, 'module_id' => 2],
+            // vendedor solo módulo auditoria
+            ['rol_id' => 3, 'module_id' => 3],
         ]);
     }
 }

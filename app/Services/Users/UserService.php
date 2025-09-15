@@ -15,10 +15,11 @@ class UserService
             ->with([
                 // Carga la relación 'roles' y selecciona solo 'id' y 'name'
                 'roles:id,name',
-
+                'roles.modules:id,name',
                 // Carga la relación 'profile' y selecciona solo 'id' y 'name'
                 // Esto asume que tienes un método `profile()` en tu modelo `User`
                 'profile:id,name',
+                 
             ])
             ->get();
 
