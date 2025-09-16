@@ -8,6 +8,8 @@ use App\Services\Auth\LoginService;
 
 
 
+
+
 class LoginController extends Controller
 {
 
@@ -28,8 +30,16 @@ class LoginController extends Controller
 
         
         $credentials = $request->only(['username', 'password']);
-        $data = $this->loginService->login($credentials);
+        $data = $this->loginService->login($credentials,$request);
   
         return response()->json($data);
     }
+
+    
+
+
+
+
+
+
 }

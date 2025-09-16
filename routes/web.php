@@ -39,4 +39,12 @@ $router->group(['middleware' => ['module:users', 'auth:api']], function () use (
 
 
 
-$router->get('/pruebausers', 'Users\UserController@index');
+$router->group(['middleware' => ['module:auditoria', 'auth:api']], function () use ($router) {
+
+        $router->get('/loginHistory', 'Auth\LoginHistoryController@index');
+    
+
+    });
+
+
+    $router->get('/pruebaloginHistory', 'Auth\LoginHistoryController@index');

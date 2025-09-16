@@ -5,13 +5,16 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\LoginService;
 use App\Models\User;
+use Carbon\Carbon; 
+use App\Models\Auth\LoginHistory;
+
 
 
 class LoginService
 
 {
     
-    public function login(array $credentials)
+    public function login(array $credentials,$request)
     {
 
          $user = User::where('username', $credentials['username'])->first();
@@ -41,6 +44,17 @@ class LoginService
 
         $user = auth()->user();
 
+
+        // ACTUALIZA EL ULTIMO LOGIN
+        $user->last_login = Carbon::now() ;  // Puedes usar Carbon también: Carbon::now()
+        $user->save();
+
+        // Registra el historial de inicio de sesión
+        $this->registrarHistorialLogin($user, $request);
+
+
+
+
         // Carga los roles y los módulos de una vez
         $userWithRelations = $user->load('roles.modules');
 
@@ -61,4 +75,23 @@ class LoginService
             'modules'      => $modules, // Agregas los módulos aquí
         ]);
     }
+
+
+
+
+private function registrarHistorialLogin($user, $request)
+{
+    LoginHistory::create([
+        'user_id'      => $user->id,
+        'ip_address'   => $request->ip(),
+        'user_agent'   => $request->userAgent(),
+        'logged_in_at' => Carbon::now(),
+    ]);
 }
+
+
+
+}
+
+
+
