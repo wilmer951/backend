@@ -13,7 +13,6 @@ $router->post('/login', 'Auth\LoginController@login');
 
 // ✅ Rutas protegidas con JWT
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
-    $router->get('/me', 'UserController@me');
     $router->get('/profiles', 'Users\ProfileController@index');
     $router->get('/roles', 'Users\RolController@index');
     $router->get('/check-token', function () {
