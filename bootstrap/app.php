@@ -61,7 +61,7 @@ $app->middleware([
 
 // Middleware de rutas (para proteger rutas con 'auth')
 $app->routeMiddleware([
-    'auth'   => Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+    'auth'   => App\Http\Middleware\CustomJWTMiddleware::class,
     'module'=> App\Http\Middleware\ModuleMiddleware::class,
 ]);
 
