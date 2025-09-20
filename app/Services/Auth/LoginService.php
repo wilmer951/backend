@@ -3,7 +3,7 @@
 
 namespace App\Services\Auth;
 
-use App\Services\Auth\LoginService;
+
 use App\Models\User;
 use Carbon\Carbon; 
 use App\Models\Auth\LoginHistory;
