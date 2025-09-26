@@ -47,6 +47,9 @@ $app->singleton(
 $app->configure('app');
 $app->configure('auth');   // Configuración para autenticación
 $app->configure('jwt');    // Configuración para JWT
+$app->configure('view');
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,8 +77,22 @@ $app->routeMiddleware([
 // Registrar el Service Provider de JWT
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
+
+
+
+
+
+
 // Puedes registrar otros providers personalizados aquí
 // $app->register(App\Providers\AppServiceProvider::class);
+
+$app->register(Illuminate\View\ViewServiceProvider::class);
+
+$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+class_alias(Barryvdh\DomPDF\Facade\Pdf::class, 'PDF');
+
+
+
 
 
 $app->bind(App\Services\Users\RolService::class, function ($app) {
