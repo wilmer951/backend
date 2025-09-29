@@ -11,10 +11,10 @@ class UserReportService
     protected $pdfGenerator;
     protected $excelGenerator;
 
-    public function __construct(UsersPdfGenerator $pdfGenerator)
+    public function __construct(UsersPdfGenerator $pdfGenerator, UsersExcelGenerator $excelGenerator)
     {
         $this->pdfGenerator = $pdfGenerator;
-        $this->excelGenerator = new UsersExcelGenerator();
+        $this->excelGenerator = $excelGenerator;
     }
 
     // Solo lógica de negocio
@@ -22,7 +22,7 @@ class UserReportService
     {
         $query = User::query();
 
-        if (!empty($filtros['estado'])) {
+        if (isset($filtros['estado']) && $filtros['estado'] !== '') {
             $query->where('status', $filtros['estado']);
         }
 

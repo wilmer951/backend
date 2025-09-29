@@ -13,9 +13,9 @@ class UserController extends BaseController
     protected $userService;
 
 
-    public function __construct()
+    public function __construct(UserService $userService)
     {
-        $this->userService = new UserService();
+        $this->userService = $userService;
     }
 
 

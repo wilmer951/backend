@@ -94,23 +94,25 @@ class_alias(Barryvdh\DomPDF\Facade\Pdf::class, 'PDF');
 
 
 
-
-$app->bind(App\Services\Users\RolService::class, function ($app) {
+// Registro de Servicios como Singleton
+$app->singleton(App\Services\Users\RolService::class, function ($app) {
     return new App\Services\Users\RolService();
 });
 
-$app->bind(App\Services\Users\ProfileService::class, function ($app) {
+$app->singleton(App\Services\Users\ProfileService::class, function ($app) {
     return new App\Services\Users\ProfileService();
 });
-$app->bind(App\Services\Users\UserService::class, function ($app) {
+$app->singleton(App\Services\Users\UserService::class, function ($app) {
     return new App\Services\Users\UserService();
 }); 
 
-
-$app->bind(App\Services\Auth\LoginService::class, function ($app) {
+$app->singleton(App\Services\Auth\LoginService::class, function ($app) {
     return new App\Services\Auth\LoginService();
 });
 
+// Registro de Generadores (para que puedan ser inyectados)
+$app->singleton(App\Generators\UsersPdfGenerator::class);
+$app->singleton(App\Generators\UsersExcelGenerator::class);
 
 /*
 |--------------------------------------------------------------------------
