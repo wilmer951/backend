@@ -2,16 +2,17 @@
 
 namespace App\Services\Reports;
 
-use App\Generators\UsersPdfGenerator;
-use App\Generators\UsersExcelGenerator;
+use App\Services\Reports\Generators\PdfReportGenerator;
+use App\Services\Reports\Generators\ExcelReportGenerator;
 use App\Models\User;
 
 class UserReportService
 {
     protected $pdfGenerator;
     protected $excelGenerator;
+    
 
-    public function __construct(UsersPdfGenerator $pdfGenerator, UsersExcelGenerator $excelGenerator)
+    public function __construct(PdfReportGenerator $pdfGenerator, ExcelReportGenerator $excelGenerator)
     {
         $this->pdfGenerator = $pdfGenerator;
         $this->excelGenerator = $excelGenerator;
@@ -42,17 +43,31 @@ class UserReportService
     {
         $usuarios = $this->obtenerUsuariosFiltrados($filtros);
 
+        $view='Reports.RptUsers';
         // Aquí se delega la generación del archivo
-        return $this->pdfGenerator->generate($usuarios)->download('usuarios.pdf');
+        return $this->pdfGenerator->generate($usuarios,$view)->download('usuarios.pdf');
     }
 
 
 
       public function generarExcel(array $filtros = [])
     {
-        $usuarios = $this->obtenerUsuariosFiltrados($filtros);
+          $usuarios = $this->obtenerUsuariosFiltrados($filtros);
 
-        // Aquí se delega la generación del archivo
-        return $this->excelGenerator->generate($usuarios);
-    }
+                    return ExcelReportGenerator::make()
+                    ->title('Reporte de Usuarios')
+                    ->headers(['ID', 'Nombre', 'Email', 'Estado', 'Fecha de creación'])
+                    ->data($usuarios, function ($usuario) {
+                        return [
+                            $usuario->id,
+                            $usuario->name,
+                            $usuario->email,
+                            $usuario->status ? 'Activo' : 'Inactivo',
+                            optional($usuario->created_at)->format('Y-m-d'),
+                        ];
+                    })
+                    ->build()
+                    ->download('usuarios.xlsx');
+            }
+
 }

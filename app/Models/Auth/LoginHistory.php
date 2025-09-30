@@ -16,6 +16,10 @@ class LoginHistory extends Model
         'logged_in_at',
     ];
 
+
+    protected $casts = [
+    'logged_in_at' => 'datetime',
+    ];
     // Relación con el modelo User
     public function user()
     {

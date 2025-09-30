@@ -33,9 +33,12 @@ $router->group(['middleware' => ['module:users', 'auth:api']], function () use (
     $router->put('/users/{id}', 'Users\UserController@update');
     $router->delete('/users/{id}', 'Users\UserController@delete');
     $router->put('/reset-password/{id}', 'Users\UserController@resetPassword'); 
-    
+
     $router->get('/reportes/users/pdf','Reports\ReportsUsersController@pdf');
     $router->get('/reportes/users/excel','Reports\ReportsUsersController@excel');
+    
+ 
+
 
     });
 
@@ -43,16 +46,19 @@ $router->group(['middleware' => ['module:users', 'auth:api']], function () use (
 
 $router->group(['middleware' => ['module:auditoria', 'auth:api']], function () use ($router) {
 
-        
     $router->get('/loginHistory', 'Auth\LoginHistoryController@index');
+
+    $router->get('/reportes/historyLogin/excel','Reports\ReportsLoginHistoryController@excel');
+    $router->get('/reportes/historyLogin/pdf','Reports\ReportsLoginHistoryController@pdf');
 
     });
 
 
     $router->get('/pruebaloginHistory', 'Auth\LoginHistoryController@index');
 
+
+
+
+
+
     
-
-
-
-

@@ -1,5 +1,6 @@
 <?php
-namespace App\Helpers;
+namespace App\Services\Reports\Helpers;
+
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 

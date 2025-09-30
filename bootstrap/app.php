@@ -111,7 +111,7 @@ $app->singleton(App\Services\Auth\LoginService::class, function ($app) {
 });
 
 // Registro de Generadores (para que puedan ser inyectados)
-$app->singleton(App\Generators\UsersPdfGenerator::class);
+$app->singleton(App\Generators\PdfReportGenerator::class);
 $app->singleton(App\Generators\UsersExcelGenerator::class);
 
 /*
